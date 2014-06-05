@@ -19,21 +19,21 @@ function core_init($x = array()) {
 	global $irc;
 	global $me;
 	global $config;
-	$me=$x['me'];
+	$me=$x['me'];	
 	$irc->join($config->channels);
 }
 
 function core_uptime($x = array()) {
 	global $irc;
 	global $me;
-	if($x['chan'] == $me) { $target=$x['nick']; } else { $target=$x['chan']; }
+	$target=$irc->target($x['chan'], $x['nick']);
 	$irc->privmsg($target, $x['nick'].": ".exec(uptime));
 }
 
 function core_memory($x = array()) {
 	global $irc;
 	global $me;
-	if($x['chan'] == $me) { $target=$x['nick']; } else { $target=$x['chan']; }
+	$target=$irc->target($x['chan'], $x['nick']);
 	$mem=memory_get_usage();
 	$mem=$mem/1024;
 	$irc->privmsg($target, $x['nick'].": ".$mem."Mb");
@@ -42,7 +42,7 @@ function core_version($x = array()) {
 	global $irc;
 	global $me;
 	global $VERSION;
-	if($x['chan'] == $me) { $target=$x['nick']; } else { $target=$x['chan']; }
+	$target=$irc->target($x['chan'], $x['nick']);
 	$irc->privmsg($target, $x['nick'].": \002ClassyBot Version\002 ".$VERSION." https://github.com/xnite/ClassyBot based on \002PHP IRCBot Class version\002 ".$irc->version()." https://github.com/xnite/PHPIRCBotClass");
 }
 function core_join($x = array()) {

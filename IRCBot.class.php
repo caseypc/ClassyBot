@@ -103,7 +103,12 @@ class IRCBot {
 		$me=$newnick;
 	}
 	/*END OF SERVER COMMAND FUNCTIONS*/
-	
+	//Get target of your messages
+	public function target($chan, $nick) {
+		global $me;
+		if($chan == $me) { return $nick; }
+		else { return $chan; }
+	}
 	public function registerModule($name, $author, $commands = array(), $help = array()) {
 		global $modinfo;
 		global $modules;
