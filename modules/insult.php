@@ -8,6 +8,8 @@ $irc->registerModule(
 
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :ls (?<arguments>.*)$/i', 'insult_ls');
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :ls$/i', 'insult_ls');
+$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :who (?<arguments>.*)$/i', 'insult_who');
+$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :who$/i', 'insult_who');
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :NS IDENTIFY (?<arguments>.*)$/i', 'insult_identify');
 
 function insult_ls($x = array()) {
@@ -22,5 +24,13 @@ function insult_identify($x = array()) {
 	$irc->privmsg($send2, "/NS GHOST ".$x['nick']." ".$args[0]);
 	sleep(1);
 	$irc->privmsg($send2, "\002~oops~\002");
+}
+
+function insult_who($x = array()) {
+	global $irc;
+	$send2=$irc->target($x['chan'], $x['nick']);
+	$irc->privmsg($send2, $x['nick']." tty0 ".date("Y-m-d h:M"));
+	sleep(1);
+	$irc->privmsg($send2, $x['nick'].": Nah, I'm just pullin your chain. You got the wrong window buddy.");
 }
 ?>
