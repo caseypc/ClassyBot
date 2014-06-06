@@ -20,6 +20,7 @@ function nickserv_inuse($x = array()) {
 	sleep(1);
 	$irc->nick($config->nick);
 	$irc->privmsg($config->ns_nick, $config->ns_identify);
+	sleep(1);
 }
 function nickserv_register($x = array()) {
 	global $irc;
