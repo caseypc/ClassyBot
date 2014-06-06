@@ -4,13 +4,13 @@ global $trigger;
 $irc->registerModule(
 	"core",
 	"xnite <xnite@xnite.org>",
-	array('mem'),
-	array('mem' => 'Returns system memory usage.', 'uptime' => 'Returns system uptime.')
+	array('memory'),
+	array('memory' => 'Returns system memory usage.', 'uptime' => 'Returns system uptime.')
 );
 $irc->hook('/^:(?<server>.*) 376 (?<me>.*) :(?<line>.*)$/i', 'core_init');
 
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'uptime$/i', 'core_uptime');
-$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'mem$/i', 'core_memory');
+$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'memory$/i', 'core_memory');
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'version$/i', 'core_version');
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'join (?<channel_to_join>.*)$/i', 'core_join');
 
@@ -35,7 +35,8 @@ function core_memory($x = array()) {
 	global $me;
 	$target=$irc->target($x['chan'], $x['nick']);
 	$mem=memory_get_usage();
-	$mem=$mem/1024;
+	$mem=$mem/1024/1024;
+	$mem=$mem;
 	$irc->privmsg($target, $x['nick'].": ".$mem."Mb");
 }
 function core_version($x = array()) {

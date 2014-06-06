@@ -23,15 +23,23 @@ foreach(file('modlist.conf') as $modPath) {
 	echo "Loaded ".$modPath."\n";
 }
 
+$irc->hook_command('help', 'do_help');
+function do_help($x = array()) {
+	global $irc;
+	if(!isset($x['arguments'])) {
+		$irc->privmsg($irc->target($x['chan'], $x['nick']), $x['nick'].": Please provide a command to look up help text.");
+	} else {
+		$args=explode(" ", $x['arguments']);
+		$irc->privmsg($irc->target($x['chan'], $x['nick']), $irc->cmdHelp($args[0]));
+	}
+}
 $irc->configure($config->server, $config->port, $config->nick, $config->ident, $config->realname);
 while($clean_shutdown == false) {
 	$irc->connect($config->timeout);
 	while($irc->heartbeat() == true) {
 		while($raw = $irc->read()) {
 			$raw=str_replace("\n", "", str_replace("\r", "", $raw));
-			if(!preg_match("/^:(.*) 372 (.*) :(.*)$/i", $raw)) {
-				echo "[RECV] ".$raw."\n"; //echo raw lines from the server so we know what the bot is seeing.
-			}
+			echo "[RECV] ".$raw."\n"; //echo raw lines from the server so we know what the bot is seeing.
 			//Pass handling raw feed off to the IRCBot class.
 			$irc->cmdHandle($raw);
 		}
