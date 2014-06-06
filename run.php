@@ -15,8 +15,7 @@ require_once("IRCBot.class.php");
 global $irc;
 global $trigger;
 $trigger=$config->trigger;
-$irc = new IRCBot();
-$irc->init();
+$irc = new IRCBot($config->server, $config->port, $config->nick, $config->ident, $config->realname);
 echo "Configuring modules\n";
 foreach(file('modlist.conf') as $modPath) {
 	require_once(str_replace("\n", "", str_replace("\r", "", $modPath)));
@@ -33,7 +32,7 @@ function do_help($x = array()) {
 		$irc->privmsg($irc->target($x['chan'], $x['nick']), $irc->cmdHelp($args[0]));
 	}
 }
-$irc->configure($config->server, $config->port, $config->nick, $config->ident, $config->realname);
+
 while($clean_shutdown == false) {
 	$irc->connect($config->timeout);
 	while($irc->heartbeat() == true) {

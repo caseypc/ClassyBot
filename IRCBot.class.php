@@ -14,7 +14,8 @@ class IRCBot {
 	public function version() {
 		return '1.1';
 	}
-	public function init() {
+	public function __construct($server, $port, $nick, $ident, $realname) {
+		global $c;
 		global $modules;
 		global $modinfo;
 		global $modhooks;
@@ -23,9 +24,6 @@ class IRCBot {
 		$modules=array();
 		$modinfo=array();
 		$modhooks=array();
-	}
-	public function configure($server, $port, $nick, $ident, $realname) {
-		global $c;
 		$c = json_decode(json_encode(array(
 			'server'	=>	$server,
 			'port'		=>	$port,
