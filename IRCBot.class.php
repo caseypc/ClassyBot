@@ -159,6 +159,10 @@ class IRCBot {
 		global $modhooks;
 		array_push($modhooks, array('regex' => $string, 'func' => $func));
 	}
+	public function hook_connect($func) {
+		global $modhooks;
+		array_push($modhooks, array('/^:(?<server>.*) 376 (?<me>.*) :(?<line>.*)$/i' => $string, 'func' => $func));
+	}
 	//Hook commands for parsing
 	public function hook_command($command, $func) {
 		global $modhooks;

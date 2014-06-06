@@ -7,7 +7,7 @@ $irc->registerModule(
 	array('_' => 'Sends ping replies to the server')
 );
 
-$irc->hook('/^:(?<server>.*) 376 (?<me>.*) :(?<line>.*)$/i', 'pingpong_init');
+$irc->hook_connect('pingpong_init');
 $irc->hook('/^PING :(?<data>.*)$/i', 'pingpong_reply');
 
 function pingpong_init($x = array()) {

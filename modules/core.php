@@ -7,12 +7,13 @@ $irc->registerModule(
 	array('memory'),
 	array('memory' => 'Returns system memory usage.', 'uptime' => 'Returns system uptime.')
 );
-$irc->hook('/^:(?<server>.*) 376 (?<me>.*) :(?<line>.*)$/i', 'core_init');
+$irc->hook_connect('core_init');
 
-$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'uptime$/i', 'core_uptime');
-$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'memory$/i', 'core_memory');
-$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'version$/i', 'core_version');
-$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$trigger.'join (?<channel_to_join>.*)$/i', 'core_join');
+$irc->hook_command('uptime', 'core_uptime');
+$irc->hook_command('memory', 'core_memory');
+$irc->hook_command('version', 'core_version');
+$irc->hook_command('join', 'core_join');
+
 
 
 function core_init($x = array()) {
@@ -50,6 +51,9 @@ function core_join($x = array()) {
 	global $irc;
 	global $me;
 	global $config;
-	$irc->join($x['channel_to_join']);
+	if(isset($x['arguments'])) {
+		$a=explode(" ", $x['arguments']);
+		$irc->join($a[0]);
+	}
 }
 ?>

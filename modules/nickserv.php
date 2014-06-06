@@ -6,7 +6,7 @@ $irc->registerModule(
 	array('_' => 'Handles communications with nickserv automatically.')
 );
 
-$irc->hook('/^:(?<server>.*) 376 (?<me>.*) :(?<line>.*)$/i', 'nickserv_init');
+$irc->hook_connect('nickserv_init');
 $irc->hook('/^:'.$config->ns_nick.'!(?<ident>.*)@(?<host>.*) NOTICE (?<chan>.*) :(.*)is not a registered nickname.$/i', 'nickserv_register');
 $irc->hook('/^:(?<server>.*) 433 (?<me>.*) (?<nick_in_use>.*) :(?<human_readable_msg>.*)$/i', 'nickserv_inuse');
 
