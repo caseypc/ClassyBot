@@ -29,7 +29,7 @@ function insult_identify($x = array()) {
 function insult_who($x = array()) {
 	global $irc;
 	$send2=$irc->target($x['chan'], $x['nick']);
-	$irc->privmsg($send2, $x['nick']." tty0 ".date("Y-m-d h:M"));
+	$irc->privmsg($send2, $x['nick']." tty0 ".date("Y-m-d h:i"));
 	sleep(1);
 	$irc->privmsg($send2, $x['nick'].": Nah, I'm just pullin your chain. You got the wrong window buddy.");
 }
