@@ -8,7 +8,6 @@ $irc->registerModule(
 
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :ls (?<arguments>.*)$/i', 'insult_ls');
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :ls$/i', 'insult_ls');
-$irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :who (?<arguments>.*)$/i', 'insult_who');
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :who$/i', 'insult_who');
 $irc->hook('/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :NS IDENTIFY (?<arguments>.*)$/i', 'insult_identify');
 
