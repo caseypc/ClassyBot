@@ -13,6 +13,7 @@ $irc->hook_command('uptime', 'core_uptime');
 $irc->hook_command('memory', 'core_memory');
 $irc->hook_command('version', 'core_version');
 $irc->hook_command('join', 'core_join');
+$irc->hook_command('part', 'core_part');
 
 
 
@@ -54,6 +55,15 @@ function core_join($x = array()) {
 	if(isset($x['arguments'])) {
 		$a=explode(" ", $x['arguments']);
 		$irc->join($a[0]);
+	}
+}
+function core_part($x = array()) {
+	global $irc;
+	global $me;
+	global $config;
+	if(isset($x['arguments'])) {
+		$a=explode(" ", $x['arguments']);
+		$irc->part($a[0]);
 	}
 }
 ?>
