@@ -5,7 +5,7 @@
 ** Permissions beyond the scope of this license may be available at http://xnite.org/copyright.                                            **
 \*******************************************************************************************************************************************/
 /*ADVANCED OPTIONS*/
-$config_type='file';
+$config_type='database';
 /*END OF ADVANCED OPTIONS*/
 ini_set('error_reporting', 'E_ERROR ~E_ALL');
 global $config_type;

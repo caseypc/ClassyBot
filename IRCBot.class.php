@@ -187,5 +187,10 @@ class IRCBot {
 		global $config;
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) JOIN (?<chan>.*)$/i', 'func' => $func));
 	}
+	public function hook_monlist_online($func) {
+		global $modhooks;
+		global $config;
+		array_push($modhooks, array('regex' => '/^:(?<server>.*) 731 * :(?<nick>.*)$/i', 'func' => $func));
+	}
 }
 ?>
