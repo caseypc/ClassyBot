@@ -19,7 +19,7 @@ $irc = new IRCBot($config->server, $config->port, $config->nick, $config->ident,
 echo "Configuring modules\n";
 foreach(file('modlist.conf') as $modPath) {
 	require_once(str_replace("\n", "", str_replace("\r", "", $modPath)));
-	echo "Loaded ".$modPath."\n";
+	echo "Loaded ".$modPath;
 }
 
 $irc->hook_command('help', 'do_help');
