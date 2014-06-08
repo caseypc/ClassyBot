@@ -45,8 +45,8 @@ class IRCBot {
 		retry_connection: {
 			$sock = fsockopen($c->server, $c->port, $errno, $errstr, $timeout);
 			if(!$sock) {
-				echo '[ERROR] (no.'.$errno.') '.$errstr.'\n';
-				echo '[ERROR] Trying to reconnect';
+				echo '[ERROR] (no.'.$errno.') '.$errstr."\n";
+				echo "\[ERROR\] Trying to reconnect\n";
 				goto retry_connection;
 			}
 		}
