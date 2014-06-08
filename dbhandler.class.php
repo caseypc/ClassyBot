@@ -25,6 +25,7 @@ class classybot_db_handler {
 		}
 	}
 	public function construct_config() {
+		global $database;
 		try{
 			$sql=$database->query("SELECT * FROM 'configuration'");
 			echo var_dump($sql);
