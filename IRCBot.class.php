@@ -42,9 +42,13 @@ class IRCBot {
 	public function connect($timeout = 30) {
 		global $c;
 		global $sock;
-		$sock = fsockopen($c->server, $c->port, $errno, $errstr, $timeout);
-		if(!$sock) {
-			echo '[ERROR] (no.'.$errno.') '.$errstr.'\n';
+		retry_connection: {
+			$sock = fsockopen($c->server, $c->port, $errno, $errstr, $timeout);
+			if(!$sock) {
+				echo '[ERROR] (no.'.$errno.') '.$errstr.'\n';
+				echo '[ERROR] Trying to reconnect';
+				goto retry_connection;
+			}
 		}
 		while($this->heartbeat() == false) {
 				sleep(1);

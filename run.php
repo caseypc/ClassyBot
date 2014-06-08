@@ -4,7 +4,7 @@
 ** Based on a work at https://github.com/xnite/chaosbotv2.                                                                                 **
 ** Permissions beyond the scope of this license may be available at http://xnite.org/copyright.                                            **
 \*******************************************************************************************************************************************/
-
+ini_set('error_reporting', 'E_ERROR ~E_ALL');
 global $clean_shutdown;
 global $VERSION;
 $VERSION='1.0';
