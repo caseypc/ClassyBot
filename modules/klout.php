@@ -25,10 +25,10 @@ function klout_score($x = array()) {
 		if(isset($api)) { $klout_id=$api->id; }
 		$api=json_decode(file_get_contents('http://api.klout.com/v2/user.json/'.$klout_id.'/score?key='.$klout_api_key));
 		if(isset($api)) { $score=$api->score; }
-		if(isset($score)) {$score=round($score);
+		if(isset($score)) {$score=round($score); }
 		if(!isset($score)) {
 			$irc->privmsg($send2, $x['nick'].': Communication error with the Klout API. Please try your request again later.');
-		}elseif($score <= 9 | !$score) {
+		} elseif($score <= 9 | !$score) {
 			$irc->privmsg($send2, $x['nick'].': Klout score for '.$username.' is under 10% or user does not exist.');
 		} else {
 			$irc->privmsg($send2, ': Klout Score for '.$username.' [KloutID: '.$klout_id.'] is '.$score.'%');
