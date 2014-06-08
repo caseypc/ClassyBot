@@ -13,7 +13,7 @@ function google_dosearch($x = array()) {
 	else {
 		$search_query=$x['arguments'];
 		$google=json_decode(file_get_contents("http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&q=".urlencode($search_query)."&ql=rn&lr=lang_en"));
-		$url=$google->responseData->results[0]->url;
+		$url=html_entity_decode($google->responseData->results[0]->url);
 		$title=html_entity_decode($google->responseData->results[0]->titleNoFormatting);
 		$irc->privmsg($send2, $x['nick'].': "'.$title.'" -> '.$url.' @ '.$google->responseData->results[0]->visibleUrl);
 	}
