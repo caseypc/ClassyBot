@@ -26,10 +26,10 @@ $irc->hook_command('help', 'do_help');
 function do_help($x = array()) {
 	global $irc;
 	if(!isset($x['arguments'])) {
-		$irc->privmsg($irc->target($x['chan'], $x['nick']), $x['nick'].": Please provide a command to look up help text.");
+		$irc->notice($x['nick'], "Please provide a command to look up help text.");
 	} else {
 		$args=explode(" ", $x['arguments']);
-		$irc->privmsg($irc->target($x['chan'], $x['nick']), $irc->cmdHelp($args[0]));
+		$irc->notice($x['nick'], $irc->cmdHelp($args[0]));
 	}
 }
 
