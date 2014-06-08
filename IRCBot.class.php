@@ -181,15 +181,7 @@ class IRCBot {
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.' (?<arguments>.*)$/i', 'func' => $func));
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.'$/i', 'func' => $func));
 	}
-	//Hook for when bot joins channel
-	//:xnite!xnite@xnite./Afraid/Admin JOIN #lol
-	public function hook_me_join($func) {
-		global $modhooks;
-		global $config;
-		global $me;
-		array_push($modhooks, array('regex' => '/^:'.$me.'!(?<ident>.*)@(?<host>.*) JOIN (?<chan>.*)$/i', 'func' => $func));
-	}
-	//Hook for when others join channel
+	//Hook on_join, please beware this will catch your own joins as well.
 	public function hook_join($func) {
 		global $modhooks;
 		global $config;
