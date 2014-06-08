@@ -16,18 +16,21 @@ $clean_shutdown=false;
 if(!isset($config_type) || $config_type == 'file') {
 	require_once('config.php');
 } elseif($config_type == 'database') {
+	echo "[INFO] Loading configuration from database file\n";
 	require_once('dbhandler.class.php');
 	global $database;
 	$database = new classybot_db_handler('classybot.db');
-	$sql=$database->query("SELECT * FROM configuration");
+	$sql=$database->query("SELECT * FROM 'configuration'");
 	$CONFIG=array();
 	foreach($sql as $conf_item) {
 		$key=$conf_item['key'];
 		$value=$conf_item['value'];
 		$CONFIG[$key]=$value;
 	}
-	$sql=NULL;
-	$conf_item=NULL;
+	echo "CONFIG dump\n";
+	echo var_dump($CONFIG);
+	echo "DB Dump\n";
+	echo var_dump($sql);
 }
 $config=json_decode(json_encode($CONFIG));
 require_once("IRCBot.class.php");
