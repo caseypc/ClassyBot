@@ -8,6 +8,9 @@
 $config_type='database';
 /*END OF ADVANCED OPTIONS*/
 ini_set('error_reporting', 'E_ERROR ~E_ALL');
+if(!file_exists('classybot.db') && !file_exists('config.php')) {
+	die("[ERROR] No configuration found, if this is your first time running the bot please edit & rename config.example.php to config.php\n");
+}
 global $config_type;
 global $clean_shutdown;
 global $VERSION;
