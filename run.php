@@ -7,7 +7,7 @@
 ini_set('error_reporting', 'E_ERROR ~E_ALL');
 global $clean_shutdown;
 global $VERSION;
-$VERSION='1.0';
+$VERSION='1.5';
 $clean_shutdown=false;
 require_once('config.php');
 $config=json_decode(json_encode($CONFIG));

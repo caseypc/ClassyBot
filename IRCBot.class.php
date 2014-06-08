@@ -12,7 +12,7 @@
 
 class IRCBot {
 	public function version() {
-		return '1.1';
+		return '1.2';
 	}
 	public function __construct($server, $port, $nick, $ident, $realname) {
 		global $c;
@@ -180,6 +180,18 @@ class IRCBot {
 		global $config;
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.' (?<arguments>.*)$/i', 'func' => $func));
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.'$/i', 'func' => $func));
+	}
+	//Hook for when bot joins channel
+	//:xnite!xnite@xnite./Afraid/Admin JOIN #lol
+	public function hook_me_join($func) {
+		global $modhooks;
+		global $config;
+		global $me;
+		array_push($modhooks, array('regex' => '/^:'.$me.'!(?<ident>.*)@(?<host>.*) JOIN (?<chan>.*)$/i', 'func' => $func));
+	}
+	//Hook for when others join channel
+	public function hook_join($func) {
+		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) JOIN (?<chan>.*)$/i', 'func' => $func));
 	}
 }
 ?>
