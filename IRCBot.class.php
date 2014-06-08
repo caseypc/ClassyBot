@@ -20,6 +20,8 @@ class IRCBot {
 		global $modinfo;
 		global $modhooks;
 		global $HELP;
+		global $CHECKIFWINDOWS;
+		if(strncasecmp(PHP_OS, 'WIN', 3) == 0) { $CHECKIFWINDOWS=true; } else { $CHECKIFWINDOWS=false; }
 		$HELP=array();
 		$modules=array();
 		$modinfo=array();
@@ -33,7 +35,10 @@ class IRCBot {
 			'trigger'	=>	'!'
 		)));
 	}
-	
+	public function is_windows() {
+		global $CHECKIFWINDOWS;
+		return $CHECKIFWINDOWS;
+	}
 	public function connect($timeout = 30) {
 		global $c;
 		global $sock;
