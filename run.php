@@ -13,7 +13,7 @@ global $clean_shutdown;
 global $VERSION;
 $VERSION='1.5';
 $clean_shutdown=false;
-if(!isset($config_type) || $config_type='file') {
+if(!isset($config_type) || $config_type == 'file') {
 	require_once('config.php');
 } elseif($config_type == 'database') {
 	require_once('dbhandler.class.php');
