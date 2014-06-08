@@ -191,6 +191,8 @@ class IRCBot {
 	}
 	//Hook for when others join channel
 	public function hook_join($func) {
+		global $modhooks;
+		global $config;
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) JOIN (?<chan>.*)$/i', 'func' => $func));
 	}
 }
