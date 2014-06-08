@@ -44,7 +44,7 @@ class IRCBot {
 		global $sock;
 		$sock = fsockopen($c->server, $c->port, $errno, $errstr, $timeout);
 		if(!$sock) {
-			echo '[ERROR] (no.'.$errno.') '.$errstr.'\n');
+			echo '[ERROR] (no.'.$errno.') '.$errstr.'\n';
 		}
 		while($this->heartbeat() == false) {
 				sleep(1);
