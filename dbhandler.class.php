@@ -66,5 +66,24 @@ class classybot_db_handler {
 			$database->exec("DELETE FROM 'configuration' WHERE key = '".$key."')");
 		} catch(PDOException $e) { echo '[DATABASE ERROR]'.$e->getMessage(); }
 	}
+	public function channel_add($channel) {
+			if($this->configRead('channels') == NULL) {
+				$this->configAdd('channels', $channel);
+			} else {
+				$channel_list=explode(',', $this->configRead('channels'));
+				array_push($channel_list, $channel);
+				$channel_list=array_unique($channel_list);
+				$this->configAdd('channels', implode(',', $channel_list));
+			}
+	}
+	public function channel_del($channel) {
+		if($this->configRead('channels') == NULL) {
+			return false;
+		} else {
+			$channel_list = explode(',', $this->configRead('channels'));
+			$channel_list = array_diff($channel_list, array($channel));
+			$this->configAdd('channels', $channel_list);
+		}
+	}
 }
 ?>
