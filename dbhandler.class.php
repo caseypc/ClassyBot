@@ -25,14 +25,16 @@ class classybot_db_handler {
 		}
 	}
 	public function construct_config() {
-		$sql=$database->query("SELECT * FROM 'configuration'");
-		$CONFIG=array();
-		foreach($sql as $conf_item) {
-			$key=$conf_item['key'];
-			$value=$conf_item['value'];
-			$CONFIG[$key]=$value;
-		}
-		return $CONFIG;
+		try{
+			$sql=$database->query("SELECT * FROM 'configuration'");
+			$CONFIG=array();
+			foreach($sql as $conf_item) {
+				$key=$conf_item['key'];
+				$value=$conf_item['value'];
+				$CONFIG[$key]=$value;
+			}
+			return $CONFIG;
+		} catch(PDOException $e) { die('[DATABASE ERROR] Could not read config from database'.$e->getMessage()); }
 	}
 	
 	public function configAdd($key, $value) {

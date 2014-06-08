@@ -16,7 +16,7 @@ $clean_shutdown=false;
 if(file_exists('classybot.db') && file_exists('config.php')) {
 	die("[ERROR] both classybot.db & config.db exist. If you have finished migrating your config to the new DB, please delete or move config.php and try again.\n");
 }
-if(!isset($config_type) || $config_type == 'file') {
+if(!isset($config_type) || $config_type == 'file' && file_exists('config.php')) {
 	require_once('config.php');
 } elseif($config_type == 'database') {
 	echo "[INFO] Loading configuration from database file\n";
@@ -24,6 +24,8 @@ if(!isset($config_type) || $config_type == 'file') {
 	global $db;
 	$db = new classybot_db_handler('classybot.db');
 	$CONFIG=$db->construct_config();
+} else {
+	die("[ERROR] Could not load config!\n");
 }
 $config=json_decode(json_encode($CONFIG));
 require_once("IRCBot.class.php");
