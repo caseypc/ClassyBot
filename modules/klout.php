@@ -10,7 +10,7 @@ $irc->registerModule(
 	array('klout' => 'Get the Klout score for specified Twitter username. \002USAGE:\002 klout <twitter_handle>')
 );
 $irc->hook_command('klout', klout_score);
-function klout_score($x['arguments']) {
+function klout_score($x = array()) {
 	global $klout_api_key;
 	global $irc;
 	$send2=$irc->target($x['chan'], $x['nick']);
