@@ -29,7 +29,11 @@ function core_uptime($x = array()) {
 	global $irc;
 	global $me;
 	$target=$irc->target($x['chan'], $x['nick']);
-	$irc->privmsg($target, $x['nick'].": ".exec(uptime));
+	if($irc->is_windows() == true) {
+		$irc->privmsg($target, $x['nick'].": You should run me on Linux. I'm more fun that way.");
+	} else {
+		$irc->privmsg($target, $x['nick'].": ".exec(uptime));
+	}
 }
 
 function core_memory($x = array()) {
