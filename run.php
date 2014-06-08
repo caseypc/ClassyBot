@@ -42,6 +42,7 @@ foreach(file('modlist.conf') as $modPath) {
 	require_once(str_replace("\n", "", str_replace("\r", "", $modPath)));
 	echo "Loaded ".$modPath;
 }
+echo "\n";
 
 $irc->hook_command('help', 'do_help');
 function do_help($x = array()) {
