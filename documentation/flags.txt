@@ -1,0 +1,11 @@
+User Flags Reference, please keep in mind that flag letters are case sensitive.
+Some modules may utilize their own flags, so be sure to check the documentation for any 3rd party modules that you use.
+Any official modules & core features which utilize flags will be documented here.
+
+FLAG	NAME			DESCRIPTION
+*		WILD			Allows the user to have all flags.
+-		DISALLOW		Disallows user from any authenticated features of the bot (aka lock the user account)
+M		MASTER			Can shutdown/restart the bot & edit the access list.
+C		CONFIG			Can update Configuration variables.
+J		JOIN/PART		Can join the bot to and part the bot from channels.
+Q		QUOTE-ADMIN		Can delete quotes from the quote database if quotes module is enabled.
