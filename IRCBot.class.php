@@ -85,12 +85,16 @@ class IRCBot {
 	//Send PRIVMSG to user/channel
 	public function privmsg($target, $message) {
 		global $c;
+		$message=str_replace('\002', "\002", $message);
+		$message=str_replace('\001', "\001", $message);
 		$this->raw("PRIVMSG ".$target." :".$message);
 	}
 	
 	//Send notice to user/channel
 	public function notice($target, $message) {
 		global $c;
+		$message=str_replace('\002', "\002", $message);
+		$message=str_replace('\001', "\001", $message);
 		$this->raw("NOTICE ".$target." :".$message);
 	}
 	
