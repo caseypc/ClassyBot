@@ -27,6 +27,7 @@ class classybot_db_handler {
 	public function construct_config() {
 		try{
 			$sql=$database->query("SELECT * FROM 'configuration'");
+			echo var_dump($sql);
 			$CONFIG=array();
 			foreach($sql as $conf_item) {
 				$key=$conf_item['key'];
