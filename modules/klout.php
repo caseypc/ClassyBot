@@ -22,11 +22,13 @@ function klout_score($x = array()) {
 		$irc->privmsg($send2, $x['nick'].': You need to provide a Twitter username.');
 	} else {
 		$api=json_decode(file_get_contents('http://api.klout.com/v2/identity.json/twitter?screenName='.$username.'&key='.$klout_api_key));
-		$klout_id=$api->id;
+		if(isset($api)) { $klout_id=$api->id; }
 		$api=json_decode(file_get_contents('http://api.klout.com/v2/user.json/'.$klout_id.'/score?key='.$klout_api_key));
-		$score=$api->score;
-		$score=round($score);
-		if($score <= 9 | !$score) {
+		if(isset($api)) { $score=$api->score; }
+		if(isset($score)) {$score=round($score);
+		if(!isset($score)) {
+			$irc->privmsg($send2, $x['nick'].': Communication error with the Klout API. Please try your request again later.');
+		}elseif($score <= 9 | !$score) {
 			$irc->privmsg($send2, $x['nick'].': Klout score for '.$username.' is under 10% or user does not exist.');
 		} else {
 			$irc->privmsg($send2, ': Klout Score for '.$username.' [KloutID: '.$klout_id.'] is '.$score.'%');
