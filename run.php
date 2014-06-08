@@ -4,12 +4,31 @@
 ** Based on a work at https://github.com/xnite/chaosbotv2.                                                                                 **
 ** Permissions beyond the scope of this license may be available at http://xnite.org/copyright.                                            **
 \*******************************************************************************************************************************************/
+/*ADVANCED OPTIONS*/
+$config_type='file';
+/*END OF ADVANCED OPTIONS*/
 ini_set('error_reporting', 'E_ERROR ~E_ALL');
+global $config_type;
 global $clean_shutdown;
 global $VERSION;
 $VERSION='1.5';
 $clean_shutdown=false;
-require_once('config.php');
+if(!isset($config_type) || $config_type='file') {
+	require_once('config.php');
+} elseif($config_type == 'database') {
+	require_once('dbhandler.class.php');
+	global $database;
+	$database = new classybot_db_handler('classybot.db');
+	$sql=$database->query("SELECT * FROM CONFIG");
+	$CONFIG=array();
+	foreach($sql as $conf_item) {
+		$key=$conf_item['key'];
+		$value=$conf_item['value'];
+		$CONFIG[$key]=$value;
+	}
+	$sql=NULL;
+	$conf_item=NULL;
+}
 $config=json_decode(json_encode($CONFIG));
 require_once("IRCBot.class.php");
 global $irc;
