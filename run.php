@@ -16,6 +16,8 @@ global $irc;
 global $trigger;
 $trigger=$config->trigger;
 $irc = new IRCBot($config->server, $config->port, $config->nick, $config->ident, $config->realname);
+echo "Initiating ClassyBot version ".$VERSION." by xnite <xnite@xnite.org>\n";
+echo "Using IRCBot Class version ".$irc->version()." by xnite <xnite@xnite.org>\n";
 echo "Configuring modules\n";
 foreach(file('modlist.conf') as $modPath) {
 	require_once(str_replace("\n", "", str_replace("\r", "", $modPath)));

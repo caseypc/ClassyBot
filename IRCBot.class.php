@@ -12,7 +12,7 @@
 
 class IRCBot {
 	public function version() {
-		return '1.2';
+		return '1.3';
 	}
 	public function __construct($server, $port, $nick, $ident, $realname) {
 		global $c;
