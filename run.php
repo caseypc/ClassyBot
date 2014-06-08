@@ -19,7 +19,7 @@ if(!isset($config_type) || $config_type == 'file') {
 	require_once('dbhandler.class.php');
 	global $database;
 	$database = new classybot_db_handler('classybot.db');
-	$sql=$database->query("SELECT * FROM CONFIG");
+	$sql=$database->query("SELECT * FROM configuration");
 	$CONFIG=array();
 	foreach($sql as $conf_item) {
 		$key=$conf_item['key'];
