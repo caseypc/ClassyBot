@@ -24,6 +24,7 @@ if(!isset($config_type) || $config_type == 'file' && file_exists('config.php')) 
 	global $db;
 	$db = new classybot_db_handler('classybot.db');
 	$CONFIG=$db->construct_config();
+	echo var_dump($CONFIG);
 } else {
 	die("[ERROR] Could not load config!\n");
 }
