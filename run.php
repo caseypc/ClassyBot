@@ -18,19 +18,9 @@ if(!isset($config_type) || $config_type == 'file') {
 } elseif($config_type == 'database') {
 	echo "[INFO] Loading configuration from database file\n";
 	require_once('dbhandler.class.php');
-	global $database;
-	$database = new classybot_db_handler('classybot.db');
-	$sql=$database->query("SELECT * FROM 'configuration'");
-	$CONFIG=array();
-	foreach($sql as $conf_item) {
-		$key=$conf_item['key'];
-		$value=$conf_item['value'];
-		$CONFIG[$key]=$value;
-	}
-	echo "CONFIG dump\n";
-	echo var_dump($CONFIG);
-	echo "DB Dump\n";
-	echo var_dump($sql);
+	global $db;
+	$db = new classybot_db_handler('classybot.db');
+	$CONFIG=$db->construct_config();
 }
 $config=json_decode(json_encode($CONFIG));
 require_once("IRCBot.class.php");

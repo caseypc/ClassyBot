@@ -1,4 +1,8 @@
 <?php
+/*
+	If config format is set to database this config will be loaded into the database on first run, modifying values here after that point will not work.
+	To modify configurations in database configuration format you will need to 
+*/
 $CONFIG=array(
 	'server'		=> 'irc.afraidirc.net',				//The address of the irc server
 	'port'			=> 6667,							//The port of the irc server (usually 6667)
