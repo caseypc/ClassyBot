@@ -14,7 +14,7 @@ global $VERSION;
 $VERSION='1.5';
 $clean_shutdown=false;
 if(file_exists('classybot.db') && file_exists('config.php')) {
-	die("[ERROR] both classybot.db & config.db exist. If you have finished migrating your config to the new DB, please delete or move config.php and try again.");
+	die("[ERROR] both classybot.db & config.db exist. If you have finished migrating your config to the new DB, please delete or move config.php and try again.\n");
 }
 if(!isset($config_type) || $config_type == 'file') {
 	require_once('config.php');
