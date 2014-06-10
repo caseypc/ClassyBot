@@ -100,7 +100,7 @@ class IRCBot {
 	//Send CTCP to user/channel
 	public function ctcp($target, $ctype) {
 		global $c;
-		$this->raw("PRIVMSG ".$target."\001".$ctype."\001";
+		$this->raw("PRIVMSG ".$target."\001".$ctype."\001");
 	}
 	
 	//Send CTCP Reply to user/channel
