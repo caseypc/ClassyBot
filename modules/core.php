@@ -49,7 +49,7 @@ function core_ctcp_version($x = array()) {
 	global $irc;
 	global $me;
 	global $VERSION;
-	$irc->ctcp_reply($x['nick'], "ClassyBot v".$VERSION." https://github.com/xnite/ClassyBot based on PHP IRCBot Class v".$irc->version()." https://github.com/xnite/PHPIRCBotClass");
+	$irc->ctcp_reply($x['nick'], 'VERSION', "ClassyBot v".$VERSION." https://github.com/xnite/ClassyBot based on PHP IRCBot Class v".$irc->version()." https://github.com/xnite/PHPIRCBotClass");
 }
 function core_version($x = array()) {
 	global $irc;
