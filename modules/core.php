@@ -14,7 +14,7 @@ $irc->hook_command('memory', 'core_memory');
 $irc->hook_command('version', 'core_version');
 $irc->hook_command('join', 'core_join');
 $irc->hook_command('part', 'core_part');
-
+$irc->hook_ctcp('VERSION', 'core_ctcp_version');
 
 
 function core_init($x = array()) {
