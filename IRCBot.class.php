@@ -97,6 +97,17 @@ class IRCBot {
 		$message=str_replace('\001', "\001", $message);
 		$this->raw("NOTICE ".$target." :".$message);
 	}
+	//Send CTCP to user/channel
+	public function ctcp($target, $ctype) {
+		global $c;
+		$this->raw("PRIVMSG ".$target."\001".$ctype."\001";
+	}
+	
+	//Send CTCP Reply to user/channel
+	public function ctcp($target, $ctype, $reply_data) {
+		global $c;
+		$this->raw("PRIVMSG ".$target."\001".$ctype." ".$reply_data."\001";
+	}
 	
 	//Join a channel
 	public function join($channel) {
@@ -180,6 +191,12 @@ class IRCBot {
 		global $config;
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.' (?<arguments>.*)$/i', 'func' => $func));
 		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.'$/i', 'func' => $func));
+	}
+	//Hook CTCP strings (JUST The CTCP Type, no arguments)
+	public function hook_ctcp($ctype, $func) {
+		global $modhooks;
+		global $config;
+		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'."\001".$ctype."\001".'$/i', 'func' => $func));
 	}
 	//Hook on_join, please beware this will catch your own joins as well.
 	public function hook_join($func) {

@@ -41,9 +41,15 @@ function core_memory($x = array()) {
 	global $me;
 	$target=$irc->target($x['chan'], $x['nick']);
 	$mem=memory_get_usage();
-	$mem=$mem/1024/1024;
-	$mem=$mem;
-	$irc->privmsg($target, $x['nick'].": ".$mem."Mb");
+	$mem=$mem/1024;
+	$mem=round($mem, 2);
+	$irc->privmsg($target, $x['nick'].": ".$mem."KB");
+}
+function core_ctcp_version($x = array()) {
+	global $irc;
+	global $me;
+	global $VERSION;
+	$irc->ctcp_reply($x['nick'], "ClassyBot v".$VERSION." https://github.com/xnite/ClassyBot based on PHP IRCBot Class v".$irc->version()." https://github.com/xnite/PHPIRCBotClass");
 }
 function core_version($x = array()) {
 	global $irc;
