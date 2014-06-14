@@ -13,7 +13,7 @@ function weather_get($x) {
 	$args=explode(" ", $x['arguments']);
 	$zip=$args[0];
 	$args=NULL;
-	if(1 >= 0) {
+	if(!is_numeric($zip) || strlen($zip) != 5) {
 		$irc->privmsg($send2, $x['nick'].": The zip code you have provided is not a valid American zip code");
 	} else {
 		$xml=file_get_contents("http://weather.yahooapis.com/forecastrss?p=".$zip."&u=f");
