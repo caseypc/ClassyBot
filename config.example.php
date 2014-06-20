@@ -6,7 +6,7 @@
 $CONFIG=array(
 	'server'		=> 'irc.afraidirc.net',					//The address of the irc server
 	'port'		=> 6697,								//The port of the irc server (usually 6667)
-	'ssl'			=> true;								//Whether or not to use SSL.
+	'ssl'			=> true,								//Whether or not to use SSL.
 	'channels'		=> '#ClassyBot',						//Channels you would like your bot to join after connecting separated by a comma (no spaces!)
 	'nick'		=> 'ClassyBot',							//The nickname of your bot
 	'ident'		=> 'ClassyBot',							//The ident of your bot

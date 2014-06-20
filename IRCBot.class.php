@@ -20,7 +20,7 @@ class IRCBot {
 	public function version() {
 		return $this->version;;
 	}
-	public function __construct($server, $port, $nick, $ident, $realname, $ssl = false, $bind_ip = false) {
+	public function __construct($server, $port, $nick, $ident, $realname, $ssl = false) {
 		global $c;
 		global $modules;
 		global $modinfo;
@@ -32,15 +32,14 @@ class IRCBot {
 		$modules=array();
 		$modinfo=array();
 		$modhooks=array();
-		$this->use_ssl=$ssl;
-		$this->bind_ip=$bind_ip;
 		$c = json_decode(json_encode(array(
-			'server'	=>	$server,
+			'server'		=>	$server,
 			'port'		=>	$port,
+			'use_ssl'		=>	$ssl,
 			'nick'		=>	$nick,
 			'ident'		=>	$ident,
 			'realname'	=>	$realname,
-			'trigger'	=>	'!'
+			'trigger'		=>	'!'
 		)));
 	}
 	public function is_windows() {
@@ -51,7 +50,7 @@ class IRCBot {
 		global $c;
 		global $sock;
 		retry_connection: {
-			if($this->use_ssl == true) {
+			if($c->use_ssl == true) {
 				$sock = fsockopen('ssl://'.$c->server, $c->port, $errno, $errstr, $timeout);
 			} else {
 				$sock = fsockopen($c->server, $c->port, $errno, $errstr, $timeout);
