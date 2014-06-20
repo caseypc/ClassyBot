@@ -14,8 +14,6 @@ class IRCBot {
 	public $version_string;
 	public $use_ssl;
 	public $bind_ip;
-	$this->version='1.4';
-	$this->codename="Cup o` Tea";
 	$this->version_string='IRCBot Class v'.$this->version.' - '.$this->codename;
 	public function version() {
 		return $this->version;;
@@ -27,6 +25,8 @@ class IRCBot {
 		global $modhooks;
 		global $HELP;
 		global $CHECKIFWINDOWS;
+		$this->version='1.4';
+		$this->codename="Cup o` Tea";
 		if(strncasecmp(PHP_OS, 'WIN', 3) == 0) { $CHECKIFWINDOWS=true; } else { $CHECKIFWINDOWS=false; }
 		$HELP=array();
 		$modules=array();
