@@ -1,20 +1,26 @@
 <?php
-/*******************************************************************************************************************************************\
-** Project:		PHP IRCBot Class                                                                                                           **
-** Author:		Robert 'xnite' Whitney <xnite@xnite.org>                                                                                   **
-** Copyright:	2014                                                                                                                       **
-** License:		Creative Commons At-NC-ND 4.0 International                                                                                **
-** ChaosBot v2.x by Robert Whitney is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. **
-** Based on a work at https://github.com/xnite/PHPIRCBotClass.                                                                             **
-** Permissions beyond the scope of this license may be available at http://xnite.org/copyright.                                            **
-\*******************************************************************************************************************************************/
-
-
+/***********************************************************************************************************************************************************\
+**	Project:		PHP IRCBot Class																						**
+**	Author:		Robert 'xnite' Whitney <xnite@xnite.org>																	**
+**	Copyright:		2014																							**
+**	License:		Creative Commons At-NC-ND 4.0 International																**
+**	PHP IRC Class  by Robert Whitney is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.	**
+**	Based on a work at https://github.com/xnite/PHPIRCBotClass.																	**
+**	Permissions beyond the scope of this license may be available at http://xnite.org/copyright.											**
+\***********************************************************************************************************************************************************/
 class IRCBot {
+	public $version;
+	public $codename;
+	public $version_string;
+	public $use_ssl;
+	public $bind_ip;
+	$this->version='1.4';
+	$this->codename="Cup o` Tea";
+	$this->version_string='IRCBot Class v'.$this->version.' - '.$this->codename;
 	public function version() {
-		return '1.3';
+		return $this->version;;
 	}
-	public function __construct($server, $port, $nick, $ident, $realname) {
+	public function __construct($server, $port, $nick, $ident, $realname, $ssl = false, $bind_ip = false) {
 		global $c;
 		global $modules;
 		global $modinfo;
@@ -26,6 +32,8 @@ class IRCBot {
 		$modules=array();
 		$modinfo=array();
 		$modhooks=array();
+		$this->use_ssl=$ssl;
+		$this->bind_ip=$bind_ip;
 		$c = json_decode(json_encode(array(
 			'server'	=>	$server,
 			'port'		=>	$port,
@@ -43,7 +51,11 @@ class IRCBot {
 		global $c;
 		global $sock;
 		retry_connection: {
-			$sock = fsockopen($c->server, $c->port, $errno, $errstr, $timeout);
+			if($this->use_ssl == true) {
+				$sock = fsockopen('ssl://'.$c->server, $c->port, $errno, $errstr, $timeout);
+			} else {
+				$sock = fsockopen($c->server, $c->port, $errno, $errstr, $timeout);
+			}
 			if(!$sock) {
 				echo '[ERROR] (no.'.$errno.') '.$errstr."\n";
 				echo "\[ERROR\] Trying to reconnect\n";

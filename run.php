@@ -36,7 +36,7 @@ require_once("IRCBot.class.php");
 global $irc;
 global $trigger;
 $trigger=$config->trigger;
-$irc = new IRCBot($config->server, $config->port, $config->nick, $config->ident, $config->realname);
+$irc = new IRCBot($config->server, $config->port, $config->nick, $config->ident, $config->realname, $config->ssl);
 echo "Initiating ClassyBot version ".$VERSION." by xnite <xnite@xnite.org>\n";
 echo "Using IRCBot Class version ".$irc->version()." by xnite <xnite@xnite.org>\n";
 echo "Configuring modules\n";
