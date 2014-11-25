@@ -32,6 +32,8 @@ class IRCBot {
 		$modules=array();
 		$modinfo=array();
 		$modhooks=array();
+		$this->cm = new ircConfigurationManager("config.json");
+		
 		$c = json_decode(json_encode(array(
 			'server'		=>	$server,
 			'port'		=>	$port,
@@ -39,7 +41,7 @@ class IRCBot {
 			'nick'		=>	$nick,
 			'ident'		=>	$ident,
 			'realname'	=>	$realname,
-			'trigger'		=>	'!'
+			'trigger'	=>	$this->cm->config->trigger
 		)));
 	}
 	public function is_windows() {
@@ -122,7 +124,11 @@ class IRCBot {
 	
 	//Join a channel
 	public function join($channel) {
-		$this->raw("JOIN ".$channel);
+		if(isset($this->cm->config->channel_settings->$channel->key) && $this->cm->config->channel_settings->$channel->key != false) {
+			$this->raw("JOIN ".$channel." ".$this->cm->config->channel_settings->$channel->key);
+		} else {
+			$this->raw("JOIN ".$channel);
+		}
 	}
 	//Leave a channel
 	public function part($channel, $message = "Leaving") {
@@ -200,8 +206,8 @@ class IRCBot {
 	public function hook_command($command, $func) {
 		global $modhooks;
 		global $config;
-		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.' (?<arguments>.*)$/i', 'func' => $func));
-		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$config->trigger.''.$command.'$/i', 'func' => $func));
+		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$this->cm->config->trigger.''.$command.' (?<arguments>.*)$/i', 'func' => $func));
+		array_push($modhooks, array('regex' => '/^:(?<nick>.*)!(?<ident>.*)@(?<host>.*) PRIVMSG (?<chan>.*) :'.$this->cm->config->trigger.''.$command.'$/i', 'func' => $func));
 	}
 	//Hook CTCP strings (JUST The CTCP Type, no arguments)
 	public function hook_ctcp($ctype, $func) {

@@ -4,39 +4,28 @@
 ** Based on a work at https://github.com/xnite/chaosbotv2.                                                                                 **
 ** Permissions beyond the scope of this license may be available at http://xnite.org/copyright.                                            **
 \*******************************************************************************************************************************************/
-/*ADVANCED OPTIONS*/
-$config_type='database';
-/*END OF ADVANCED OPTIONS*/
-ini_set('error_reporting', 'E_ERROR ~E_ALL');
-if(!file_exists('classybot.db') && !file_exists('config.php')) {
-	die("[ERROR] No configuration found, if this is your first time running the bot please edit & rename config.example.php to config.php\n");
+ini_set('error_reporting', 'E_ALL');
+ini_set('display_errors', 1);
+if(!file_exists("config.json")) {
+	die("There was an error reading the configuration file. Please be sure that the file config.json exists in the working directory\n");
 }
-global $config_type;
+require_once("configmanager.php");
+$c = new ircConfigurationManager("config.json");
+if(!is_object($c->config)) {
+	die("Configuration did not pass inspection.\n");
+}
+global $c;
 global $clean_shutdown;
 global $VERSION;
-$VERSION='1.5';
+$VERSION='1.6';
 $clean_shutdown=false;
-if(file_exists('classybot.db') && file_exists('config.php')) {
-	die("[ERROR] both classybot.db & config.db exist. If you have finished migrating your config to the new DB, please delete or move config.php and try again.\n");
-}
-if(!isset($config_type) || $config_type == 'file' && file_exists('config.php')) {
-	require_once('config.php');
-} elseif($config_type == 'database') {
-	echo "[INFO] Loading configuration from database file\n";
-	require_once('dbhandler.class.php');
-	global $db;
-	$db = new classybot_db_handler('classybot.db');
-	$CONFIG=$db->construct_config();
-	echo var_dump($CONFIG);
-} else {
-	die("[ERROR] Could not load config!\n");
-}
 $config=json_decode(json_encode($CONFIG));
+
 require_once("IRCBot.class.php");
 global $irc;
 global $trigger;
 $trigger=$config->trigger;
-$irc = new IRCBot($config->server, $config->port, $config->nick, $config->ident, $config->realname, $config->ssl);
+$irc = new IRCBot($c->config->irc_server, $c->config->irc_port, $c->config->bot_nick, $c->config->bot_ident, $c->config->bot_realname, $c->config->use_ssl);
 echo "Initiating ClassyBot version ".$VERSION." by xnite <xnite@xnite.org>\n";
 echo "Using IRCBot Class version ".$irc->version()." by xnite <xnite@xnite.org>\n";
 echo "Configuring modules\n";
@@ -49,6 +38,7 @@ echo "\n";
 $irc->hook_command('help', 'do_help');
 function do_help($x = array()) {
 	global $irc;
+	global $c;
 	if(!isset($x['arguments'])) {
 		$irc->notice($x['nick'], "Please provide a command to look up help text.");
 	} else {
@@ -57,8 +47,9 @@ function do_help($x = array()) {
 	}
 }
 
+
 while($clean_shutdown == false) {
-	$irc->connect($config->timeout);
+	$irc->connect($irc->cm->config->timeout);
 	while($irc->heartbeat() == true) {
 		while($raw = $irc->read()) {
 			$raw=str_replace("\n", "", str_replace("\r", "", $raw));

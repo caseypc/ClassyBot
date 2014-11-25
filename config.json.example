@@ -1,0 +1,41 @@
+{
+    "irc_server": "irc.AfraidIRC.net",
+    "irc_port": 6697,
+    "use_ssl": true,
+    "timeout": 15,
+    "bot_nick": "ClassyBot",
+    "bot_ident": "classy",
+    "bot_realname": "ClassyBot",
+    "bind_host": false,
+    "trigger": "!",
+    "autojoin_channels": {
+		"#lobby"
+    },
+    "channel_settings": {
+        "#lobby": {
+            "greetings": false,
+            "key": false,
+			"log": true
+        },
+		"#secretChannel": {
+			"greetings": true,
+			"key": "SecretPassWord",
+			"log": false
+		}
+    },
+    "users": {
+        "xnite": {
+            "hostname": "xnite/Afraid/Admin",
+            "is_admin": true,
+            "greeting":false
+        }
+    },
+    "modules": {
+        "nickserv": {
+            "services_nick": "NickServ",
+            "identify_string": "IDENTIFY ClassyBot password",
+            "register_string": "REGISTER ClassyBot password me@email.tld",
+            "ghost_string": "GHOST ClassyBot password"
+        }
+    }
+}

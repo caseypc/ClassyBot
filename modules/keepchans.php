@@ -1,4 +1,6 @@
 <?php
+/*no need for this module since it is now included in core
+
 $irc->registerModule(
 	"keepchans",
 	"xnite <xnite@xnite.org>",
@@ -14,3 +16,4 @@ function keepchans_join($x = array()) {
 		echo '[INFO] Adding '.$x['chan']."to database so we will auto-join it next time\n";
 	}
 }
+*/

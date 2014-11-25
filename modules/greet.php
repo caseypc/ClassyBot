@@ -10,8 +10,8 @@ $irc->hook_join(greet_others_join);
 function greet_others_join($x = array()) {
 	global $irc; global $me;
 	if($x['nick'] != $me) {
-		$irc->privmsg($x['chan'], "Hello ".$x['nick'].", welcome to ".$x['chan']."!");
-	} else {
-		$irc->privmsg($x['chan'], "Hello everybody! I am ".$me.", and some might say I'm rather classy!");
+		if(isset($irc->cm->config->users->$x['nick']->greeting) && $irc->cm->config->users->$x['nick']->greeting != false && $irc->cm->config->channel_settings->$x['chan']->greetings != false && $irc->cm->config->channel_settings->$x['chan']->greetings != "false" ) {
+			$irc->privmsg($x['chan'], "User Greeting for ".$x['nick'].": ".$irc->cm->config->users->$x['nick']->greeting);
+		}
 	}
 }
