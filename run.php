@@ -1,9 +1,11 @@
 <?php
-/*******************************************************************************************************************************************\
-** ChaosBot v2.x by Robert Whitney is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. **
-** Based on a work at https://github.com/xnite/chaosbotv2.                                                                                 **
-** Permissions beyond the scope of this license may be available at http://xnite.org/copyright.                                            **
-\*******************************************************************************************************************************************/
+/*
+ * Name:	Classybot
+ * Author:	Robert Whitney <xnite@xnite.me>
+ * License:	Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 Internation License
+ * 			This program is provided as is, the author takes no responsibility of *any* damage this program may cause.
+ */
+
 ini_set('error_reporting', 'E_ALL');
 ini_set('display_errors', 1);
 if(!file_exists("config.json")) {
